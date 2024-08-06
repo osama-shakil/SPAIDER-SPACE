@@ -1,5 +1,4 @@
 import { getFirebase, getUsersCollection } from "@/lib/firebaseUtils";
-import { getInitials } from "@/utils/functions";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 export const loginUser = createAsyncThunk(
@@ -68,50 +67,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const loginWithGoogle = createAsyncThunk(
-  'user/loginWithGoogle',
-  async ({ onSuccess, onError }, thunkAPI) => {
-    const firebase = await getFirebase();
-    const usersCollection = await getUsersCollection();
-    const provider = new firebase.auth.GoogleAuthProvider();
 
-    try {
-      const result = await firebase.auth().signInWithPopup(provider);
-      console.log('result: ', result);
-      const { email, uid, displayName, photoURL } = result?.user;
-
-      const query = await usersCollection.doc(uid).get();
-
-      if (query.exists) {
-        const userData = { id: query.id, ...query.data() };
-        onSuccess(userData);
-        return userData;
-      } else {
-        const userData = {
-          email: email,
-          firstName: displayName,
-          lastName: "",
-          initials: getInitials(displayName),
-          communities: [],
-          points:0,
-          profileImage: photoURL,
-          createdAt: firebase.firestore.Timestamp.now(),
-          updatedAt: firebase.firestore.Timestamp.now(),
-
-        };
-
-        await usersCollection.doc(uid).set(userData);
-        onSuccess(userData);
-        console.log('User created: ', userData);
-        return userData;
-      }
-    } catch (error) {
-      toast.error(error.message || "An error occurred during Google login");
-      onError && onError(error);
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
 export const logout = createAsyncThunk("user/logout", async ({}, thunkAPI) => {
   const firebase = await getFirebase();
   firebase
