@@ -1,6 +1,7 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import {
@@ -11,8 +12,7 @@ import {
     CardTitle,
 } from "../ui/card";
 import { Input } from "../ui/input";
-import { useRouter } from "next/navigation";
-import Logo from "@/assets/images/logo.svg";
+
 import { resetPasswordSchema } from "@/schemas/authSchema";
 import Image from "next/image";
 
@@ -44,7 +44,7 @@ const ResetPassword = () => {
                 <Card className="w-full  max-w-md rounded-lg bg-white border shadow-none">
                     <CardHeader className="space-y-2 text-center">
                         <CardTitle className="flex items-center justify-center mb-5">
-                        <Image src={Logo} alt="logo" className="h-20 w-20" />
+                        {/* <Image src={Logo} alt="logo" className="h-20 w-20" /> */}
                         </CardTitle>
                         <CardDescription className="text-black text-2xl font-bold mb-8">
                             Please check your email

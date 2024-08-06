@@ -1,19 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie, setCookie } from "cookies-next";
 import {
-  fetchAllUsers,
-  fetchLeaderBoardAllTime,
-  fetchLeaderBoardSevenDays,
-  fetchLeaderBoardThirtyDays,
   loginUser,
-  loginWithGoogle,
   logout,
-  registerUser,
-  updateChatSettings,
-  updateNotificationSettings,
-  updateTheme,
-  updateTimezone,
-  updateUserProfile,
+  registerUser
 } from "./userThunk";
 
 const initialState = {
@@ -72,19 +62,19 @@ export const userSlice = createSlice({
         state.isLoading = false;
       })
       // Login with google
-      .addCase(loginWithGoogle.pending, (state, action) => {
-        state.isLoading = false;
-      })
-      .addCase(loginWithGoogle.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.uid = action.payload.id;
-        setCookie("uid", action.payload.id);
-        setCookie("user", action.payload);
-        state.isLoading = false;
-      })
-      .addCase(loginWithGoogle.rejected, (state, action) => {
-        state.isLoading = false;
-      })
+      // .addCase(loginWithGoogle.pending, (state, action) => {
+      //   state.isLoading = false;
+      // })
+      // .addCase(loginWithGoogle.fulfilled, (state, action) => {
+      //   state.user = action.payload;
+      //   state.uid = action.payload.id;
+      //   setCookie("uid", action.payload.id);
+      //   setCookie("user", action.payload);
+      //   state.isLoading = false;
+      // })
+      // .addCase(loginWithGoogle.rejected, (state, action) => {
+      //   state.isLoading = false;
+      // })
       // Register User
       .addCase(registerUser.pending, (state, action) => {
         state.isLoading = true;
