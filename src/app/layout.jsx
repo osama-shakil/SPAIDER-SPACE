@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
           >
             <Toaster position="top-center" reverseOrder={false} />
             <NextTopLoader
-              color="#2fbb4f"
+              color="#0d74e7"
               initialPosition={0.08}
               crawlSpeed={400}
               height={3}

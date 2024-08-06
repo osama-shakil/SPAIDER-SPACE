@@ -13,7 +13,7 @@ const Page = () => {
           <p className=" mb-4">
             At{" "}
             <span className="font-semibold text-github-linkcolor">
-              Innovative Solutions Inc.
+            Spaider space
             </span>
             , we are committed to providing cutting-edge technology solutions
             that empower businesses to achieve their goals. Founded in 2010, we

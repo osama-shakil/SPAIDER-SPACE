@@ -77,7 +77,6 @@ export const userSlice = createSlice({
       })
       .addCase(loginWithGoogle.fulfilled, (state, action) => {
         state.user = action.payload;
-        console.log("action.payload: ", action.payload);
         state.uid = action.payload.id;
         setCookie("uid", action.payload.id);
         setCookie("user", action.payload);

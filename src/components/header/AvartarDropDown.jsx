@@ -29,10 +29,10 @@ import {
   FaRegStar,
   FaLightbulb
 } from "react-icons/fa";
+import Link from "next/link";
 
 const menuOptions = [
-  { icon: FaUser, label: "osama-shakil" },
-  { icon: FaUser, label: "Muhammad Osama" },
+
   { icon: FaSmile, label: "Set status" },
   { icon: FaUser, label: "Your profile" },
   { icon: FaCodeBranch, label: "Your repositories" },
@@ -53,7 +53,7 @@ const menuOptions = [
   { icon: FaSignOutAlt, label: "Sign out" }
 ];
 
-const AvartarDropDown = ({ firstName, lastName, image }) => (
+const AvartarDropDown = ({ firstName, lastName,email, image }) => (
   <Sheet className="bg-github-secondary rounded-l">
     <SheetTrigger className="bg-github-secondary cursor-pointer" asChild>
       <div>
@@ -63,19 +63,33 @@ const AvartarDropDown = ({ firstName, lastName, image }) => (
         />
       </div>
     </SheetTrigger>
-    <SheetContent className="bg-github-secondary rounded-r border-none text-white" side="right">
+    <SheetContent className="bg-github-secondary rounded-l-2xl  border-none text-white" side="right">
       <SheetHeader>
-        <h3 className="text-lg font-bold">Menu</h3>
+        <div className="flex items-center gap-3">
+        <CustomAvatar
+          name={getInitials(`${firstName} ${lastName}`)}
+          url={image || "https://github.com/shadcn.png"}
+        />
+        <span>
+
+        <h2 className="text-lg">{firstName+ " " + lastName}</h2>
+        <p className="text-sm text-zinc-300">{email}</p>
+        </span>
+        
+        </div>
+       
       </SheetHeader>
-      <div className="p-4 overflow-y-scroll h-[95vh]">
-        <ul className="space-y-2">
+
+
+      <div className="py-4 mt-4 h-[95vh]">
+        <ul className="space-y-1">
           {menuOptions.map((option, index) => (
             <div key={index}>
             <li >
-              <a href="#" className="flex items-center p-2 rounded hover:bg-github-hover">
-                <option.icon className="mr-2" />
+              <Link href="#" className="flex items-center p-2 text-sm  rounded hover:bg-github-hover">
+                 <span className="text-zinc-500"><option.icon className="mr-2" /></span>
                 {option.label}
-              </a>
+              </Link>
             </li>
           {["Set status","Your sponsors", "Settings","GitHub Community"].includes(option.label) && <hr className="border-gray-700"/>}
             </div>

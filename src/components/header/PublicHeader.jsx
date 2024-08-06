@@ -2,6 +2,8 @@
 import { useSelector } from "react-redux";
 import AvartarDropDown from "./AvartarDropDown";
 import Menu from "./Menu";
+import LogoName from "../common/LogoName";
+import Link from "next/link";
 
 const PublicHeader = () => {
   const { user } = useSelector((state) => state?.user);
@@ -11,36 +13,32 @@ const PublicHeader = () => {
       <Menu />
       <div className="flex items-center justify-between w-full h-full px-4">
         {/* Logo Section */}
-        <div className="text-2xl font-bold ">
-          <a href="/" className="text-white hover:text-gray-300">
-            <span className="text-github-linkcolor">Innovative</span> Solutions
-          </a>
-        </div>
+        <LogoName />
 
         {/* Navigation Buttons */}
         <div className="space-x-4">
           {!user?.email ? (
             <>
-              <a
+              <Link
                 href="/auth/login"
                 className="text-gray-300 hover:text-white transition duration-300"
               >
                 Sign In
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/auth/register"
                 className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition duration-300 border"
               >
                 Sign Up
-              </a>
+              </Link>
             </>
           ) : (
-            <a
+            <Link
               href="/chatbot"
               className="text-gray-300 hover:text-white transition duration-300 mr-16"
             >
               chatbot
-            </a>
+            </Link>
           )}
         </div>
       </div>

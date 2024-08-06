@@ -2,7 +2,6 @@
 import { LoginSchema } from "@/schemas/authSchema";
 import { loginUser } from "@/store/user/userThunk";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -22,8 +21,7 @@ const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.user);
-  const { profileData } = useSelector((state) => state?.user);
-  const { theme, setTheme } = useTheme();
+
 
   const {
     register,
@@ -49,14 +47,6 @@ const Login = () => {
     );
   };
 
-  const handleSignup = (e) => {
-    router.push("/auth/register");
-  };
-
-  const handleForgotPassword = (e) => {
-    e.preventDefault();
-    router.push("/auth/reset-password");
-  };
 
   return (
     <div className="w-full max-w-md rounded-lg bg-github-secondary text-white  py-6 shadow">
@@ -65,8 +55,8 @@ const Login = () => {
           {/* <Image src={Logo} alt="logo" className="h-20 w-20" /> */}
           <div className="text-2xl font-bold">
             <span className="text-white hover:text-gray-300">
-              <span className="text-github-linkcolor">Innovative</span>{" "}
-              Solutions
+              <span className="text-github-linkcolor">Spaider</span>{" "}
+              Space
             </span>
           </div>
         </CardTitle>
