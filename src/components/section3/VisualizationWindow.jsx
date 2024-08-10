@@ -1,14 +1,13 @@
 "use client";
 
+import { Shiba } from "./Shiba";
 
-
-
-const VisualizationWindow  = () => {
+const VisualizationWindow = () => {
   return (
     <div>
-     
+      <Shiba />
     </div>
-  )
-}
+  );
+};
 
-export default VisualizationWindow 
+export default VisualizationWindow;
