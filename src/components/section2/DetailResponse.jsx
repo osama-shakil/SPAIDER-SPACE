@@ -26,7 +26,7 @@ const DetailResponse = () => {
               {responseWithCode ? (
                 <div
                   key={index}
-                  className={`my-2 py-2 px-4 text-wrap  max-w-[100%] border rounded ${
+                  className={`my-2 py-2 px-4 text-wrap  max-w-[100%]  rounded ${
                     msg.sender === "user" ? " self-end" : "self-start"
                   }`}
                 >

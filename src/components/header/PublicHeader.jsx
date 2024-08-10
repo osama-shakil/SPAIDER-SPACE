@@ -10,7 +10,7 @@ import Image from "next/image";
 const PublicHeader = () => {
   const { user } = useSelector((state) => state?.user);
   return (
-    <header className="flex justify-between place-items-center bg-gray-900 text-white px-10 h-full border-b shadow-md">
+    <header className="flex justify-between place-items-center bg-gray-900 text-white px-10 h-full  shadow-md">
       <Menu />
       <div className="flex items-center justify-between w-full h-full px-4">
         {/* Logo Section */}

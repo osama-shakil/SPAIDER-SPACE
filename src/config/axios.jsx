@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getCookie } from "cookies-next";
+// Add back-end url here
 export const baseDomain = '';
 
 export const axiosInstance = axios.create({
