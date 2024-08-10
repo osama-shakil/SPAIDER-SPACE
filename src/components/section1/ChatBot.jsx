@@ -25,7 +25,7 @@ const ChatBot = () => {
       setTimeout(() => {
         dispatch(
           getPromptResponse({
-            payload: { text: input, sender: "ai" },
+            payload: { text: "responsive from ai", sender: "ai" },
             onSuccess: () => {},
           })
         );
