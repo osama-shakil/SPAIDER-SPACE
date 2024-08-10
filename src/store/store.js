@@ -4,7 +4,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { thunk } from "redux-thunk";
 import userSlice from "./user/userSlice";
-import { chatSlice } from "./chat/chatSlice";
+import chatSlice from "./chat/chatSlice";
 
 
 const persistConfig = {
@@ -15,7 +15,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userSlice,
-  chat: chatSlice
+  chats: chatSlice
  
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);

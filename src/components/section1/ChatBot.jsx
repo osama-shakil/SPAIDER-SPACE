@@ -1,13 +1,12 @@
 "use client";
 import { getPromptResponse } from "@/store/chat/chatThunk";
-import { useSelect } from "@react-three/drei";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosSend } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChatBot = () => {
   const dispatch = useDispatch();
-  const {chatData} = useSelect((state) => state.chat);
+  const {chatData} = useSelector((state) => state.chats);
   console.log('chat:****** ', chatData);
   const [input, setInput] = useState("");
   const chatEndRef = useRef(null);
