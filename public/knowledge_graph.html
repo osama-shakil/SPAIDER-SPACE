@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 750px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#e57272", "font": {"color": "white"}, "id": "Mission", "label": "Mission", "shape": "dot", "size": 30}, {"color": "#ace572", "font": {"color": "white"}, "id": "Launch ", "label": "Launch ", "shape": "dot", "size": 30}, {"color": "#72e5e5", "font": {"color": "white"}, "id": "Protocol", "label": "Protocol", "shape": "dot", "size": 30}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "Approximate budget", "label": "Approximate budget", "shape": "dot", "size": 30}, {"color": "#e57272", "font": {"color": "white"}, "id": "Gamma Ray Large Area Space Telescope", "label": "Gamma Ray Large Area Space Telescope", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "Aug-02", "label": "Aug-02", "shape": "dot", "size": 15}, {"color": "#72e5e5", "font": {"color": "white"}, "id": "CCSDS", "label": "CCSDS", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$400 M (nasa)", "label": "$400 M (nasa)", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Lunar Discovery Mission", "label": "Lunar Discovery Mission", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "Jul-04", "label": "Jul-04", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "nan", "label": "nan", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$325 M", "label": "$325 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Aeroclime", "label": "Aeroclime", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2010", "label": "2010", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$500 M", "label": "$500 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Global Electrodynamics Connection - 4 spacecraft", "label": "Global Electrodynamics Connection - 4 spacecraft", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2011", "label": "2011", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$250 M", "label": "$250 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Laser Interferometer Space Antenna", "label": "Laser Interferometer Space Antenna", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$1,750 M ($875 NASA)", "label": "$1,750 M ($875 NASA)", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Inner Magnetosphere Constellation", "label": "Inner Magnetosphere Constellation", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2014", "label": "2014", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "NPOESS Prepartory Project (NPP)", "label": "NPOESS Prepartory Project (NPP)", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2006", "label": "2006", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "ST-7 Disturbance Reduction System", "label": "ST-7 Disturbance Reduction System", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$62.6 M", "label": "$62.6 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Solar Dynamics Observatory (SDO)", "label": "Solar Dynamics Observatory (SDO)", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2007", "label": "2007", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$400 M", "label": "$400 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Fourier Kelvin Stellar Imager", "label": "Fourier Kelvin Stellar Imager", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "Jul-05", "label": "Jul-05", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "450", "label": "450", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Advanced X-ray Polarimeter", "label": "Advanced X-ray Polarimeter", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$120 M", "label": "$120 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Normal Incidence Extreme ltraviolet Sprectrometer (NEXUS)", "label": "Normal Incidence Extreme ltraviolet Sprectrometer (NEXUS)", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Global Precipitation Measurement (GPM)", "label": "Global Precipitation Measurement (GPM)", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2009", "label": "2009", "shape": "dot", "size": 15}, {"color": "#72e5e5", "font": {"color": "white"}, "id": "IP", "label": "IP", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$800 M", "label": "$800 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Magnetosphere Multiscales (MMS)", "label": "Magnetosphere Multiscales (MMS)", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "CAPS", "label": "CAPS", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$150 M", "label": "$150 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "James Webb Space Telescope (JWST)", "label": "James Webb Space Telescope (JWST)", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "\u003e1 billion", "label": "\u003e1 billion", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Geoview", "label": "Geoview", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Magnetosphere Constellation", "label": "Magnetosphere Constellation", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2013", "label": "2013", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Constellation X", "label": "Constellation X", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "$1.5 billion", "label": "$1.5 billion", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Energetic X-ray Imaging Survey Telescope (EXIST)", "label": "Energetic X-ray Imaging Survey Telescope (EXIST)", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2009 at the earliest", "label": "2009 at the earliest", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "~$500 M", "label": "~$500 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Super nova acceleration Probe (SNAP)", "label": "Super nova acceleration Probe (SNAP)", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Cosmic Microwave Background Polarization", "label": "Cosmic Microwave Background Polarization", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "probably 2015", "label": "probably 2015", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Microarcsecond X-ray Imaging Mission (MAXIM)", "label": "Microarcsecond X-ray Imaging Mission (MAXIM)", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2025?", "label": "2025?", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Big Bang Observatory", "label": "Big Bang Observatory", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "billions", "label": "billions", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Galactic Exoplanet Survey Telescope (GEST)", "label": "Galactic Exoplanet Survey Telescope (GEST)", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Jovian Planet Finder", "label": "Jovian Planet Finder", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Aqua", "label": "Aqua", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2002", "label": "2002", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Aura", "label": "Aura", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2004", "label": "2004", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Terra", "label": "Terra", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1999", "label": "1999", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "TRMM", "label": "TRMM", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1997", "label": "1997", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "UARS", "label": "UARS", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1991", "label": "1991", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "ERBS", "label": "ERBS", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1984", "label": "1984", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "SAMPEX", "label": "SAMPEX", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1992", "label": "1992", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "FAST", "label": "FAST", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1995", "label": "1995", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "SWAS", "label": "SWAS", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1998", "label": "1998", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "TRACE", "label": "TRACE", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "WIRE", "label": "WIRE", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "WIND", "label": "WIND", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1994", "label": "1994", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Polar", "label": "Polar", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1996", "label": "1996", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "SOHO", "label": "SOHO", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "ACE", "label": "ACE", "shape": "dot", "size": 15}, {"color": "#72e5e5", "font": {"color": "white"}, "id": "semi-CCSDS", "label": "semi-CCSDS", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "RXTE", "label": "RXTE", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "EO-1", "label": "EO-1", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2000", "label": "2000", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "MAP", "label": "MAP", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2001", "label": "2001", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "IMAGE", "label": "IMAGE", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "TPF", "label": "TPF", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "~2015", "label": "~2015", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "HST", "label": "HST", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "1990", "label": "1990", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "billions and billions", "label": "billions and billions", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Maxim Pathfinder", "label": "Maxim Pathfinder", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2015", "label": "2015", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Office of Biological and Physical Research Free flyers", "label": "Office of Biological and Physical Research Free flyers", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2008?", "label": "2008?", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Triana", "label": "Triana", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "GOES-R", "label": "GOES-R", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Icesat", "label": "Icesat", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2003", "label": "2003", "shape": "dot", "size": 15}, {"color": "#72e5e5", "font": {"color": "white"}, "id": "CCSDS (more or less)", "label": "CCSDS (more or less)", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Landsat Data Continuity Mission", "label": "Landsat Data Continuity Mission", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "ST-5", "label": "ST-5", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2005", "label": "2005", "shape": "dot", "size": 15}, {"color": "#ac72e5", "font": {"color": "white"}, "id": "~$60 M", "label": "~$60 M", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Glory", "label": "Glory", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "SMEX AO", "label": "SMEX AO", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "2007 \u00262008", "label": "2007 \u00262008", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Deep Impact Microlensing Explorer", "label": "Deep Impact Microlensing Explorer", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "September 2005 start of ops", "label": "September 2005 start of ops", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "New Frontiers AO", "label": "New Frontiers AO", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Discovery AO", "label": "Discovery AO", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "~2009", "label": "~2009", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Einstein probes ", "label": "Einstein probes ", "shape": "dot", "size": 15}, {"color": "#e57272", "font": {"color": "white"}, "id": "Code S Vision Missions", "label": "Code S Vision Missions", "shape": "dot", "size": 15}, {"color": "#ace572", "font": {"color": "white"}, "id": "after 2012", "label": "after 2012", "shape": "dot", "size": 15}]);
+                  edges = new vis.DataSet([{"from": "Mission", "to": "Launch "}, {"from": "Mission", "to": "Protocol"}, {"from": "Mission", "to": "Approximate budget"}, {"from": "Mission", "to": "Gamma Ray Large Area Space Telescope"}, {"from": "Mission", "to": "Lunar Discovery Mission"}, {"from": "Mission", "to": "Aeroclime"}, {"from": "Mission", "to": "Global Electrodynamics Connection - 4 spacecraft"}, {"from": "Mission", "to": "Laser Interferometer Space Antenna"}, {"from": "Mission", "to": "Inner Magnetosphere Constellation"}, {"from": "Mission", "to": "NPOESS Prepartory Project (NPP)"}, {"from": "Mission", "to": "ST-7 Disturbance Reduction System"}, {"from": "Mission", "to": "Solar Dynamics Observatory (SDO)"}, {"from": "Mission", "to": "Fourier Kelvin Stellar Imager"}, {"from": "Mission", "to": "Advanced X-ray Polarimeter"}, {"from": "Mission", "to": "Normal Incidence Extreme ltraviolet Sprectrometer (NEXUS)"}, {"from": "Mission", "to": "Global Precipitation Measurement (GPM)"}, {"from": "Mission", "to": "Magnetosphere Multiscales (MMS)"}, {"from": "Mission", "to": "CAPS"}, {"from": "Mission", "to": "James Webb Space Telescope (JWST)"}, {"from": "Mission", "to": "Geoview"}, {"from": "Mission", "to": "Magnetosphere Constellation"}, {"from": "Mission", "to": "Constellation X"}, {"from": "Mission", "to": "Energetic X-ray Imaging Survey Telescope (EXIST)"}, {"from": "Mission", "to": "Super nova acceleration Probe (SNAP)"}, {"from": "Mission", "to": "Cosmic Microwave Background Polarization"}, {"from": "Mission", "to": "Microarcsecond X-ray Imaging Mission (MAXIM)"}, {"from": "Mission", "to": "Big Bang Observatory"}, {"from": "Mission", "to": "Galactic Exoplanet Survey Telescope (GEST)"}, {"from": "Mission", "to": "Jovian Planet Finder"}, {"from": "Mission", "to": "Aqua"}, {"from": "Mission", "to": "Aura"}, {"from": "Mission", "to": "Terra"}, {"from": "Mission", "to": "TRMM"}, {"from": "Mission", "to": "UARS"}, {"from": "Mission", "to": "ERBS"}, {"from": "Mission", "to": "SAMPEX"}, {"from": "Mission", "to": "FAST"}, {"from": "Mission", "to": "SWAS"}, {"from": "Mission", "to": "TRACE"}, {"from": "Mission", "to": "WIRE"}, {"from": "Mission", "to": "WIND"}, {"from": "Mission", "to": "Polar"}, {"from": "Mission", "to": "SOHO"}, {"from": "Mission", "to": "ACE"}, {"from": "Mission", "to": "RXTE"}, {"from": "Mission", "to": "EO-1"}, {"from": "Mission", "to": "MAP"}, {"from": "Mission", "to": "IMAGE"}, {"from": "Mission", "to": "TPF"}, {"from": "Mission", "to": "HST"}, {"from": "Mission", "to": "Maxim Pathfinder"}, {"from": "Mission", "to": "Office of Biological and Physical Research Free flyers"}, {"from": "Mission", "to": "Triana"}, {"from": "Mission", "to": "GOES-R"}, {"from": "Mission", "to": "Icesat"}, {"from": "Mission", "to": "Landsat Data Continuity Mission"}, {"from": "Mission", "to": "ST-5"}, {"from": "Mission", "to": "Glory"}, {"from": "Mission", "to": "SMEX AO"}, {"from": "Mission", "to": "Deep Impact Microlensing Explorer"}, {"from": "Mission", "to": "New Frontiers AO"}, {"from": "Mission", "to": "Discovery AO"}, {"from": "Mission", "to": "Einstein probes "}, {"from": "Mission", "to": "Code S Vision Missions"}, {"from": "Launch ", "to": "Protocol"}, {"from": "Launch ", "to": "Approximate budget"}, {"from": "Launch ", "to": "Aug-02"}, {"from": "Launch ", "to": "Jul-04"}, {"from": "Launch ", "to": "2010"}, {"from": "Launch ", "to": "2011"}, {"from": "Launch ", "to": "2014"}, {"from": "Launch ", "to": "2006"}, {"from": "Launch ", "to": "2007"}, {"from": "Launch ", "to": "Jul-05"}, {"from": "Launch ", "to": "2009"}, {"from": "Launch ", "to": "2013"}, {"from": "Launch ", "to": "2009 at the earliest"}, {"from": "Launch ", "to": "probably 2015"}, {"from": "Launch ", "to": "2025?"}, {"from": "Launch ", "to": "2002"}, {"from": "Launch ", "to": "2004"}, {"from": "Launch ", "to": "1999"}, {"from": "Launch ", "to": "1997"}, {"from": "Launch ", "to": "1991"}, {"from": "Launch ", "to": "1984"}, {"from": "Launch ", "to": "1992"}, {"from": "Launch ", "to": "1995"}, {"from": "Launch ", "to": "1998"}, {"from": "Launch ", "to": "1994"}, {"from": "Launch ", "to": "1996"}, {"from": "Launch ", "to": "2000"}, {"from": "Launch ", "to": "2001"}, {"from": "Launch ", "to": "~2015"}, {"from": "Launch ", "to": "1990"}, {"from": "Launch ", "to": "2015"}, {"from": "Launch ", "to": "2008?"}, {"from": "Launch ", "to": "nan"}, {"from": "Launch ", "to": "2003"}, {"from": "Launch ", "to": "2005"}, {"from": "Launch ", "to": "2007 \u00262008"}, {"from": "Launch ", "to": "September 2005 start of ops"}, {"from": "Launch ", "to": "~2009"}, {"from": "Launch ", "to": "after 2012"}, {"from": "Protocol", "to": "Approximate budget"}, {"from": "Protocol", "to": "CCSDS"}, {"from": "Protocol", "to": "nan"}, {"from": "Protocol", "to": "IP"}, {"from": "Protocol", "to": "semi-CCSDS"}, {"from": "Protocol", "to": "CCSDS (more or less)"}, {"from": "Approximate budget", "to": "$400 M (nasa)"}, {"from": "Approximate budget", "to": "$325 M"}, {"from": "Approximate budget", "to": "$500 M"}, {"from": "Approximate budget", "to": "$250 M"}, {"from": "Approximate budget", "to": "$1,750 M ($875 NASA)"}, {"from": "Approximate budget", "to": "nan"}, {"from": "Approximate budget", "to": "$62.6 M"}, {"from": "Approximate budget", "to": "$400 M"}, {"from": "Approximate budget", "to": "450"}, {"from": "Approximate budget", "to": "$120 M"}, {"from": "Approximate budget", "to": "$800 M"}, {"from": "Approximate budget", "to": "$150 M"}, {"from": "Approximate budget", "to": "\u003e1 billion"}, {"from": "Approximate budget", "to": "$1.5 billion"}, {"from": "Approximate budget", "to": "~$500 M"}, {"from": "Approximate budget", "to": "billions"}, {"from": "Approximate budget", "to": "billions and billions"}, {"from": "Approximate budget", "to": "~$60 M"}, {"from": "Gamma Ray Large Area Space Telescope", "to": "Aug-02"}, {"from": "Gamma Ray Large Area Space Telescope", "to": "CCSDS"}, {"from": "Gamma Ray Large Area Space Telescope", "to": "$400 M (nasa)"}, {"from": "Aug-02", "to": "CCSDS"}, {"from": "Aug-02", "to": "$400 M (nasa)"}, {"from": "CCSDS", "to": "$400 M (nasa)"}, {"from": "CCSDS", "to": "Laser Interferometer Space Antenna"}, {"from": "CCSDS", "to": "2011"}, {"from": "CCSDS", "to": "$1,750 M ($875 NASA)"}, {"from": "CCSDS", "to": "NPOESS Prepartory Project (NPP)"}, {"from": "CCSDS", "to": "2006"}, {"from": "CCSDS", "to": "$500 M"}, {"from": "CCSDS", "to": "Solar Dynamics Observatory (SDO)"}, {"from": "CCSDS", "to": "2007"}, {"from": "CCSDS", "to": "$400 M"}, {"from": "CCSDS", "to": "CAPS"}, {"from": "CCSDS", "to": "2009"}, {"from": "CCSDS", "to": "$150 M"}, {"from": "CCSDS", "to": "James Webb Space Telescope (JWST)"}, {"from": "CCSDS", "to": "\u003e1 billion"}, {"from": "CCSDS", "to": "Aqua"}, {"from": "CCSDS", "to": "2002"}, {"from": "CCSDS", "to": "nan"}, {"from": "CCSDS", "to": "Aura"}, {"from": "CCSDS", "to": "2004"}, {"from": "CCSDS", "to": "Terra"}, {"from": "CCSDS", "to": "1999"}, {"from": "CCSDS", "to": "TRMM"}, {"from": "CCSDS", "to": "1997"}, {"from": "CCSDS", "to": "SAMPEX"}, {"from": "CCSDS", "to": "1992"}, {"from": "CCSDS", "to": "FAST"}, {"from": "CCSDS", "to": "1995"}, {"from": "CCSDS", "to": "SWAS"}, {"from": "CCSDS", "to": "1998"}, {"from": "CCSDS", "to": "TRACE"}, {"from": "CCSDS", "to": "WIRE"}, {"from": "CCSDS", "to": "SOHO"}, {"from": "CCSDS", "to": "RXTE"}, {"from": "CCSDS", "to": "EO-1"}, {"from": "CCSDS", "to": "2000"}, {"from": "CCSDS", "to": "MAP"}, {"from": "CCSDS", "to": "2001"}, {"from": "CCSDS", "to": "IMAGE"}, {"from": "Lunar Discovery Mission", "to": "Jul-04"}, {"from": "Lunar Discovery Mission", "to": "nan"}, {"from": "Lunar Discovery Mission", "to": "$325 M"}, {"from": "Jul-04", "to": "nan"}, {"from": "Jul-04", "to": "$325 M"}, {"from": "nan", "to": "$325 M"}, {"from": "nan", "to": "Aeroclime"}, {"from": "nan", "to": "2010"}, {"from": "nan", "to": "$500 M"}, {"from": "nan", "to": "Global Electrodynamics Connection - 4 spacecraft"}, {"from": "nan", "to": "2011"}, {"from": "nan", "to": "$250 M"}, {"from": "nan", "to": "Inner Magnetosphere Constellation"}, {"from": "nan", "to": "2014"}, {"from": "nan", "to": "nan"}, {"from": "nan", "to": "ST-7 Disturbance Reduction System"}, {"from": "nan", "to": "2006"}, {"from": "nan", "to": "$62.6 M"}, {"from": "nan", "to": "Fourier Kelvin Stellar Imager"}, {"from": "nan", "to": "Jul-05"}, {"from": "nan", "to": "450"}, {"from": "nan", "to": "Advanced X-ray Polarimeter"}, {"from": "nan", "to": "2007"}, {"from": "nan", "to": "$120 M"}, {"from": "nan", "to": "Normal Incidence Extreme ltraviolet Sprectrometer (NEXUS)"}, {"from": "nan", "to": "Magnetosphere Multiscales (MMS)"}, {"from": "nan", "to": "IP"}, {"from": "nan", "to": "Geoview"}, {"from": "nan", "to": "Magnetosphere Constellation"}, {"from": "nan", "to": "2013"}, {"from": "nan", "to": "Constellation X"}, {"from": "nan", "to": "$1.5 billion"}, {"from": "nan", "to": "Energetic X-ray Imaging Survey Telescope (EXIST)"}, {"from": "nan", "to": "2009 at the earliest"}, {"from": "nan", "to": "~$500 M"}, {"from": "nan", "to": "Super nova acceleration Probe (SNAP)"}, {"from": "nan", "to": "Cosmic Microwave Background Polarization"}, {"from": "nan", "to": "probably 2015"}, {"from": "nan", "to": "Microarcsecond X-ray Imaging Mission (MAXIM)"}, {"from": "nan", "to": "2025?"}, {"from": "nan", "to": "Big Bang Observatory"}, {"from": "nan", "to": "billions"}, {"from": "nan", "to": "Galactic Exoplanet Survey Telescope (GEST)"}, {"from": "nan", "to": "2009"}, {"from": "nan", "to": "Jovian Planet Finder"}, {"from": "nan", "to": "Aqua"}, {"from": "nan", "to": "2002"}, {"from": "nan", "to": "Aura"}, {"from": "nan", "to": "2004"}, {"from": "nan", "to": "Terra"}, {"from": "nan", "to": "1999"}, {"from": "nan", "to": "TRMM"}, {"from": "nan", "to": "1997"}, {"from": "nan", "to": "UARS"}, {"from": "nan", "to": "1991"}, {"from": "nan", "to": "ERBS"}, {"from": "nan", "to": "1984"}, {"from": "nan", "to": "SAMPEX"}, {"from": "nan", "to": "1992"}, {"from": "nan", "to": "FAST"}, {"from": "nan", "to": "1995"}, {"from": "nan", "to": "SWAS"}, {"from": "nan", "to": "1998"}, {"from": "nan", "to": "TRACE"}, {"from": "nan", "to": "WIRE"}, {"from": "nan", "to": "WIND"}, {"from": "nan", "to": "1994"}, {"from": "nan", "to": "Polar"}, {"from": "nan", "to": "1996"}, {"from": "nan", "to": "SOHO"}, {"from": "nan", "to": "ACE"}, {"from": "nan", "to": "semi-CCSDS"}, {"from": "nan", "to": "RXTE"}, {"from": "nan", "to": "EO-1"}, {"from": "nan", "to": "2000"}, {"from": "nan", "to": "MAP"}, {"from": "nan", "to": "2001"}, {"from": "nan", "to": "IMAGE"}, {"from": "nan", "to": "TPF"}, {"from": "nan", "to": "~2015"}, {"from": "nan", "to": "HST"}, {"from": "nan", "to": "1990"}, {"from": "nan", "to": "billions and billions"}, {"from": "nan", "to": "Maxim Pathfinder"}, {"from": "nan", "to": "2015"}, {"from": "nan", "to": "Office of Biological and Physical Research Free flyers"}, {"from": "nan", "to": "2008?"}, {"from": "nan", "to": "Triana"}, {"from": "nan", "to": "GOES-R"}, {"from": "nan", "to": "Icesat"}, {"from": "nan", "to": "2003"}, {"from": "nan", "to": "CCSDS (more or less)"}, {"from": "nan", "to": "Landsat Data Continuity Mission"}, {"from": "nan", "to": "ST-5"}, {"from": "nan", "to": "2005"}, {"from": "nan", "to": "~$60 M"}, {"from": "nan", "to": "Glory"}, {"from": "nan", "to": "SMEX AO"}, {"from": "nan", "to": "2007 \u00262008"}, {"from": "nan", "to": "Deep Impact Microlensing Explorer"}, {"from": "nan", "to": "September 2005 start of ops"}, {"from": "nan", "to": "New Frontiers AO"}, {"from": "nan", "to": "Discovery AO"}, {"from": "nan", "to": "~2009"}, {"from": "nan", "to": "Einstein probes "}, {"from": "nan", "to": "Code S Vision Missions"}, {"from": "nan", "to": "after 2012"}, {"from": "$325 M", "to": "Galactic Exoplanet Survey Telescope (GEST)"}, {"from": "$325 M", "to": "2009"}, {"from": "Aeroclime", "to": "2010"}, {"from": "Aeroclime", "to": "$500 M"}, {"from": "2010", "to": "$500 M"}, {"from": "2010", "to": "Magnetosphere Multiscales (MMS)"}, {"from": "2010", "to": "IP"}, {"from": "2010", "to": "Geoview"}, {"from": "2010", "to": "GOES-R"}, {"from": "$500 M", "to": "NPOESS Prepartory Project (NPP)"}, {"from": "$500 M", "to": "2006"}, {"from": "Global Electrodynamics Connection - 4 spacecraft", "to": "2011"}, {"from": "Global Electrodynamics Connection - 4 spacecraft", "to": "$250 M"}, {"from": "2011", "to": "$250 M"}, {"from": "2011", "to": "Laser Interferometer Space Antenna"}, {"from": "2011", "to": "$1,750 M ($875 NASA)"}, {"from": "2011", "to": "James Webb Space Telescope (JWST)"}, {"from": "2011", "to": "\u003e1 billion"}, {"from": "2011", "to": "Einstein probes "}, {"from": "Laser Interferometer Space Antenna", "to": "$1,750 M ($875 NASA)"}, {"from": "Inner Magnetosphere Constellation", "to": "2014"}, {"from": "2014", "to": "Constellation X"}, {"from": "2014", "to": "$1.5 billion"}, {"from": "NPOESS Prepartory Project (NPP)", "to": "2006"}, {"from": "2006", "to": "ST-7 Disturbance Reduction System"}, {"from": "2006", "to": "$62.6 M"}, {"from": "2006", "to": "Glory"}, {"from": "ST-7 Disturbance Reduction System", "to": "$62.6 M"}, {"from": "Solar Dynamics Observatory (SDO)", "to": "2007"}, {"from": "Solar Dynamics Observatory (SDO)", "to": "$400 M"}, {"from": "2007", "to": "$400 M"}, {"from": "2007", "to": "Advanced X-ray Polarimeter"}, {"from": "2007", "to": "$120 M"}, {"from": "2007", "to": "Normal Incidence Extreme ltraviolet Sprectrometer (NEXUS)"}, {"from": "2007", "to": "Landsat Data Continuity Mission"}, {"from": "Fourier Kelvin Stellar Imager", "to": "Jul-05"}, {"from": "Fourier Kelvin Stellar Imager", "to": "450"}, {"from": "Jul-05", "to": "450"}, {"from": "Advanced X-ray Polarimeter", "to": "$120 M"}, {"from": "$120 M", "to": "Normal Incidence Extreme ltraviolet Sprectrometer (NEXUS)"}, {"from": "Global Precipitation Measurement (GPM)", "to": "2009"}, {"from": "Global Precipitation Measurement (GPM)", "to": "IP"}, {"from": "Global Precipitation Measurement (GPM)", "to": "$800 M"}, {"from": "2009", "to": "IP"}, {"from": "2009", "to": "$800 M"}, {"from": "2009", "to": "CAPS"}, {"from": "2009", "to": "$150 M"}, {"from": "2009", "to": "Galactic Exoplanet Survey Telescope (GEST)"}, {"from": "2009", "to": "Jovian Planet Finder"}, {"from": "IP", "to": "$800 M"}, {"from": "IP", "to": "Magnetosphere Multiscales (MMS)"}, {"from": "CAPS", "to": "$150 M"}, {"from": "James Webb Space Telescope (JWST)", "to": "\u003e1 billion"}, {"from": "Magnetosphere Constellation", "to": "2013"}, {"from": "Constellation X", "to": "$1.5 billion"}, {"from": "Energetic X-ray Imaging Survey Telescope (EXIST)", "to": "2009 at the earliest"}, {"from": "Energetic X-ray Imaging Survey Telescope (EXIST)", "to": "~$500 M"}, {"from": "2009 at the earliest", "to": "~$500 M"}, {"from": "2009 at the earliest", "to": "Super nova acceleration Probe (SNAP)"}, {"from": "Cosmic Microwave Background Polarization", "to": "probably 2015"}, {"from": "Microarcsecond X-ray Imaging Mission (MAXIM)", "to": "2025?"}, {"from": "2025?", "to": "Big Bang Observatory"}, {"from": "2025?", "to": "billions"}, {"from": "Big Bang Observatory", "to": "billions"}, {"from": "billions", "to": "TPF"}, {"from": "billions", "to": "~2015"}, {"from": "Aqua", "to": "2002"}, {"from": "Aura", "to": "2004"}, {"from": "Terra", "to": "1999"}, {"from": "1999", "to": "WIRE"}, {"from": "TRMM", "to": "1997"}, {"from": "1997", "to": "ACE"}, {"from": "1997", "to": "semi-CCSDS"}, {"from": "UARS", "to": "1991"}, {"from": "ERBS", "to": "1984"}, {"from": "SAMPEX", "to": "1992"}, {"from": "FAST", "to": "1995"}, {"from": "1995", "to": "SOHO"}, {"from": "1995", "to": "RXTE"}, {"from": "SWAS", "to": "1998"}, {"from": "1998", "to": "TRACE"}, {"from": "WIND", "to": "1994"}, {"from": "Polar", "to": "1996"}, {"from": "ACE", "to": "semi-CCSDS"}, {"from": "EO-1", "to": "2000"}, {"from": "2000", "to": "IMAGE"}, {"from": "MAP", "to": "2001"}, {"from": "TPF", "to": "~2015"}, {"from": "HST", "to": "1990"}, {"from": "HST", "to": "billions and billions"}, {"from": "1990", "to": "billions and billions"}, {"from": "Maxim Pathfinder", "to": "2015"}, {"from": "Office of Biological and Physical Research Free flyers", "to": "2008?"}, {"from": "Icesat", "to": "2003"}, {"from": "Icesat", "to": "CCSDS (more or less)"}, {"from": "2003", "to": "CCSDS (more or less)"}, {"from": "ST-5", "to": "2005"}, {"from": "ST-5", "to": "~$60 M"}, {"from": "2005", "to": "~$60 M"}, {"from": "SMEX AO", "to": "2007 \u00262008"}, {"from": "Deep Impact Microlensing Explorer", "to": "September 2005 start of ops"}, {"from": "Discovery AO", "to": "~2009"}, {"from": "Code S Vision Missions", "to": "after 2012"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"font": {"size": 12}}, "edges": {"color": {"inherit": true}, "smooth": false}, "physics": {"forceAtlas2Based": {"gravitationalConstant": -50, "centralGravity": 0.01, "springLength": 100, "springConstant": 0.08}, "minVelocity": 0.75, "solver": "forceAtlas2Based", "timestep": 0.5}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

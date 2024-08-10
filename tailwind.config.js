@@ -53,8 +53,8 @@ module.exports = {
         github: {
           primary: "#0d1117",
           secondary: "#161b22",
-          btnColor: "#2dba4e",
-          linkcolor: "#0d74e7",
+          btnColor: "#20b8af",
+          linkcolor: "#1f98a9",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

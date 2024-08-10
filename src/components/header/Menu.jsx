@@ -30,6 +30,8 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import LogoName from "../common/LogoName";
+import Image from "next/image";
+import Logo from "@/assets/Logo_svg_neongreen.svg";
 
 const menuOptions = [
   { icon: FaUser, label: "Your profile" },
@@ -44,7 +46,6 @@ const menuOptions = [
   { icon: FaRocket, label: "Try Enterprise" },
   { icon: FaClipboardList, label: "Free" },
   { icon: FaLightbulb, label: "Feature preview" },
-
 ];
 const Menu = () => {
   return (
@@ -58,6 +59,7 @@ const Menu = () => {
       >
         <SheetHeader>
           {/* Logo */}
+          <Image src={Logo} alt="logo" width={40} height={40} />
           <LogoName />
         </SheetHeader>
         <div className="py-4 mt-4 h-[95vh]">

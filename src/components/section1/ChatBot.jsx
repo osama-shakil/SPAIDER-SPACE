@@ -1,34 +1,45 @@
 "use client";
+import { getPromptResponse } from "@/store/chat/chatThunk";
+import { useSelect } from "@react-three/drei";
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosSend } from "react-icons/io";
+import { useDispatch } from "react-redux";
 
 const ChatBot = () => {
-  const [messages, setMessages] = useState([]);
+  const dispatch = useDispatch();
+  const {chatData} = useSelect((state) => state.chat);
+  console.log('chat:****** ', chatData);
   const [input, setInput] = useState("");
   const chatEndRef = useRef(null);
 
   const handleSend = (event) => {
     event.preventDefault();
     if (input.trim()) {
-      setMessages([...messages, { text: input, sender: "user" }]);
+      dispatch(
+        getPromptResponse({
+          payload: { text: input, sender: "user" },
+          onSuccess: () => {},
+        })
+      );
       setInput("");
       // Simulate bot response
       setTimeout(() => {
-        setMessages([
-          ...messages,
-          { text: input, sender: "user" },
-          { text: "This is a bot response.", sender: "bot" },
-        ]);
+        dispatch(
+          getPromptResponse({
+            payload: { text: input, sender: "ai" },
+            onSuccess: () => {},
+          })
+        );
       }, 1000);
     }
   };
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [chatData]);
   return (
     <div className="flex flex-col gap-2">
       <div className=" flex flex-col  h-[80vh] overflow-y-scroll p-4 bg-github-secondary rounded shadow-md">
-        {messages.map((msg, index) => (
+        {chatData?.map((msg, index) => (
           <div
             key={index}
             className={`my-2 py-2 px-4 text-wrap  max-w-[90%] border rounded ${
