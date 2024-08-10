@@ -1,4 +1,5 @@
 "use client";
+import { response } from "@/assets/Data";
 import { getPromptResponse } from "@/store/chat/chatThunk";
 import { useEffect, useRef, useState } from "react";
 import { IoIosSend } from "react-icons/io";
@@ -25,7 +26,7 @@ const ChatBot = () => {
       setTimeout(() => {
         dispatch(
           getPromptResponse({
-            payload: { text: "responsive from ai", sender: "ai" },
+            payload: { text: response, sender: "ai" },
             onSuccess: () => {},
           })
         );
@@ -45,7 +46,7 @@ const ChatBot = () => {
               msg.sender === "user" ? " self-end" : "self-start"
             }`}
           >
-            {msg.text}
+            {msg.text.length>100 ? msg.text.slice(0,100)+"..." : msg.text}
           </div>
         ))}
         <div ref={chatEndRef} />

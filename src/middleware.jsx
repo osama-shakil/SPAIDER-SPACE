@@ -5,7 +5,7 @@ export function middleware(request) {
     console.log('token: ', token);
    
     if (token?.value && request.nextUrl.pathname.startsWith("/auth")) {
-        return NextResponse.redirect(new URL("/", request.url));
+        return NextResponse.redirect(new URL("/chatbot", request.url));
     }
     if (!token?.value && (request.nextUrl.pathname.startsWith("/chatbot"))) {
         return NextResponse.redirect(new URL("/auth/login", request.url));

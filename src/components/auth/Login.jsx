@@ -16,6 +16,9 @@ import {
   CardTitle
 } from "../ui/card";
 import { Input } from "../ui/input";
+import Image from "next/image";
+import Logo from "@/assets/Logo_svg_neongreen.svg";
+
 
 const Login = () => {
   const router = useRouter();
@@ -51,9 +54,9 @@ const Login = () => {
   return (
     <div className="w-full max-w-md rounded-lg bg-github-secondary text-white  py-6 shadow">
       <CardHeader className="space-y-2 text-center">
+        <Image src={Logo} alt="logo" width={40} height={40} className="mx-auto"/>
         <CardTitle className="flex items-center justify-center mb-5">
-          {/* <Image src={Logo} alt="logo" className="h-20 w-20" /> */}
-          <div className="text-2xl font-bold">
+        <div className="text-2xl font-bold">
             <span className="text-white hover:text-gray-300">
               <span className="text-github-linkcolor">Spaider</span>{" "}
               Space
@@ -97,7 +100,7 @@ const Login = () => {
           <Button
             disabled={isLoading}
             type="submit"
-            className="w-full text-base font-semibold bg-github-btnColor hover:bg-green-600 text-white"
+            className="w-full text-base font-semibold bg-github-btnColor hover:bg-github-linkcolor text-white"
           >
             {isLoading ? (
               <ImSpinner6 className="text-white animate-spin" />

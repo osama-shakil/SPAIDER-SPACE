@@ -17,9 +17,7 @@ export const chatSlice = createSlice({
         state.loader = true;
       })
       .addCase(getPromptResponse.fulfilled, (state, action) => {
-        {
-          debugger;
-        }
+       
         let temp = state.chatData ? state.chatData : [];
         temp.push(action.payload);
         state.chatData = temp;

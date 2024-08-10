@@ -4,16 +4,20 @@ import AvartarDropDown from "./AvartarDropDown";
 import Menu from "./Menu";
 import LogoName from "../common/LogoName";
 import Link from "next/link";
+import Logo from "@/assets/Logo_svg_neongreen.svg";
+import Image from "next/image";
 
 const PublicHeader = () => {
   const { user } = useSelector((state) => state?.user);
-  console.log('user: ', user);
   return (
     <header className="flex justify-between place-items-center bg-gray-900 text-white px-10 h-full border-b shadow-md">
       <Menu />
       <div className="flex items-center justify-between w-full h-full px-4">
         {/* Logo Section */}
-        <LogoName />
+        <div className="flex items-center gap-3">
+          <Image src={Logo} alt="logo" width={30} height={30} />
+          <LogoName />
+        </div>
 
         {/* Navigation Buttons */}
         <div className="space-x-4">
@@ -42,8 +46,7 @@ const PublicHeader = () => {
           )}
         </div>
       </div>
-       <AvartarDropDown {...user}/>
-     
+      <AvartarDropDown {...user} />
     </header>
   );
 };

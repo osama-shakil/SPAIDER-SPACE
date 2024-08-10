@@ -10,14 +10,11 @@ import toast from "react-hot-toast";
 import { ImSpinner6 } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
-import {
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "../ui/card";
+import { CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { VerificationModal } from "./modal/VerificationModal";
+import Logo from "@/assets/Logo_svg_neongreen.svg";
+import Image from "next/image";
 
 const SignUp = () => {
   const router = useRouter();
@@ -36,7 +33,8 @@ const SignUp = () => {
   });
 
   const handleSignup = (data) => {
-{}
+    {
+    }
     dispatch(
       registerUser({
         payload: data,
@@ -46,8 +44,6 @@ const SignUp = () => {
         onError: () => {},
       })
     );
-   
-
   };
   const onVerify = () => {};
   const handleLogin = (e) => {
@@ -78,7 +74,9 @@ const SignUp = () => {
   return (
     <>
       <div className="w-full max-w-md rounded-lg bg-github-secondary text-white  border-zinc-200  shadow">
+
         <CardHeader className="space-y-2 text-center">
+        <Image src={Logo} alt="logo" width={50} height={50} className="mx-auto" />
           <CardTitle className="text-3xl font-bold flex items-center justify-center mb-5">
             Sign Up
           </CardTitle>
@@ -151,17 +149,11 @@ const SignUp = () => {
         <CardFooter className="border-none shadow-flex flex-col items-center justify-center">
           <p className="text-[#909090] text-sm">
             By signing up, you accept our{" "}
-            <span
-              className="underline cursor-pointer"
-              onClick={() => {}}
-            >
+            <span className="underline cursor-pointer" onClick={() => {}}>
               terms
             </span>{" "}
             and{" "}
-            <span
-              className="underline cursor-pointer"
-              onClick={() =>{}}
-            >
+            <span className="underline cursor-pointer" onClick={() => {}}>
               privacy policy
             </span>
             .
@@ -169,7 +161,7 @@ const SignUp = () => {
           <p className="text-whitw pt-5">
             Already have an account?{" "}
             <span
-              className="text-[#2E6EF5] cursor-pointer"
+              className="text-github-linkcolor cursor-pointer"
               onClick={handleLogin}
             >
               Log in
