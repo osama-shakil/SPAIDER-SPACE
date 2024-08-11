@@ -5,6 +5,7 @@ import DisplayCode from "../common/DisplayCode";
 
 const DetailResponse = () => {
   const { detailResponse } = useSelector((state) => state.chats);
+  console.log('detailResponse: ', detailResponse);
   const [response, setResponse] = useState("");
   const chatEndRef = useRef(null);
 
@@ -35,7 +36,7 @@ const DetailResponse = () => {
           <div
             className={`my-2 py-2 px-4 text-wrap  max-w-[90%]`}
           >
-            {response}
+            <pre >{detailResponse}</pre>
           </div>
         )}
       </>

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getCookie } from "cookies-next";
 // Add back-end url here
-export const baseDomain = 'https://df60-185-232-234-253.ngrok-free.app';
+export const baseDomain = 'https://95a6-185-232-234-253.ngrok-free.app';
+ 
 
 export const axiosInstance = axios.create({
   baseURL: baseDomain,

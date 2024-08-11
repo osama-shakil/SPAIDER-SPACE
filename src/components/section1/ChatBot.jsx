@@ -15,29 +15,30 @@ import { Button } from "../ui/button";
 const ChatBot = () => {
   const dispatch = useDispatch();
   const { chatData, loader } = useSelector((state) => state.chats);
-  console.log("loader: ", loader);
-  console.log("chatData: ", chatData);
+
   const [input, setInput] = useState("");
   const chatEndRef = useRef(null);
 
   const handleSend = (event) => {
     event.preventDefault();
     if (input.trim()) {
+      const prompt=input
       dispatch(sendPromt({ input: input, ai: "" }));
       dispatch(
         getPromptResponse({
           payload: { input: input, ai: "" },
-          onSuccess: () => {},
+          onSuccess: () => {
+            dispatch(
+              getPromptDetailedResponse({
+                payload: { input: prompt, ai: "" },
+                onSuccess: () => {},
+              })
+            );
+          },
         })
       );
-      // dispatch(
-      //   getPromptDetailedResponse({
-      //     payload: { input: input, ai: "" },
-      //     onSuccess: () => {},
-      //   })
-      // );
+
       setInput("");
-     
     }
   };
   useEffect(() => {
@@ -46,29 +47,31 @@ const ChatBot = () => {
   return (
     <div className="flex flex-col gap-2">
       <div className=" flex flex-col  h-[80vh] overflow-y-scroll p-4 bg-github-secondary rounded shadow-md">
-        {chatData?.map((msg, index) => (
-          <>
-            {
-              <div
-                key={index}
-                className={`my-2 py-2 px-4 text-wrap self-end max-w-[90%] border rounded `}
-              >
-                {msg.input}
-              </div>
-            }
+        {chatData
+          ?.filter((msg) => Object.keys(msg).length > 0 || !msg.text)
+          ?.map((msg, index) => (
+            <>
+              {
+                <div
+                  key={index}
+                  className={`my-2 py-2 px-4 text-wrap self-end max-w-[90%]  bg-github-primary shadow rounded `}
+                >
+                  {msg.input}
+                </div>
+              }
 
-            {msg?.ai && (
-              <div
-                key={index}
-                className={`my-2 py-2 px-4 text-wrap self-start  max-w-[90%] border rounded `}
-              >
-                {msg?.ai?.length > 100
-                  ? msg?.ai?.slice(0, 100) + "..."
-                  : msg.ai}
-              </div>
-            )}
-          </>
-        ))}
+              {msg?.ai && (
+                <div
+                  key={index}
+                  className={`my-2 py-2 px-4 text-wrap self-start  max-w-[90%] bg-github-primary shadow rounded `}
+                >
+                  {msg?.ai?.length > 100
+                    ? msg?.ai?.slice(0, 100) + "..."
+                    : msg.ai}
+                </div>
+              )}
+            </>
+          ))}
         <div ref={chatEndRef} />
       </div>
       <form className=" h-[20%]" onSubmit={handleSend}>

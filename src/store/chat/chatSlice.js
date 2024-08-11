@@ -40,9 +40,7 @@ export const chatSlice = createSlice({
         state.loader = true;
       })
       .addCase(getPromptDetailedResponse.fulfilled, (state, action) => {
-        const lastIndex = state.chatData.length - 1;
-        state.chatData[lastIndex].ai = action.payload;
-
+        state.detailResponse= action.payload;
         state.loader = false;
       })
       .addCase(getPromptDetailedResponse.rejected, (state) => {
