@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { responseTable } from "@/assets/Data";
 
 const invoices = [
   {
@@ -57,7 +58,10 @@ const invoices = [
 
 const QuantitativeFeedback = () => {
   const [filteredInvoices, setFilteredInvoices] = useState(invoices);
+
+  const [data, setData] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
+
   const [sortConfig, setSortConfig] = useState({
     key: "invoice",
     direction: "ascending",
@@ -93,10 +97,16 @@ const QuantitativeFeedback = () => {
     return 0;
   });
 
+  useEffect(() => {
+    if (responseTable) {
+      setData(responseTable);
+    }
+  }, [responseTable]);
+
   return (
     <div className="flex flex-col h-[80vh] overflow-y-scroll p-4 bg-github-secondary rounded shadow-md">
       <h2 className="mb-4">Quantitative Feedback</h2>
-      <div className="flex mb-4">
+      {/* <div className="flex mb-4">
         <button
           onClick={() => handleFilter("All")}
           className={`mr-2 px-4 py-2 rounded-full text-sm shadow-md ${
@@ -105,6 +115,8 @@ const QuantitativeFeedback = () => {
         >
           All
         </button>
+
+
         <button
           onClick={() => handleFilter("Paid")}
           className={`mr-2 px-4 py-2 rounded-full text-sm shadow-md ${
@@ -129,12 +141,21 @@ const QuantitativeFeedback = () => {
         >
           Unpaid
         </button>
-      </div>
+      </div> */}
       <Table className="mt-4 bg-github-primary rounded-xl">
-        <TableCaption>A list of your recent invoices.</TableCaption>
+        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader>
           <TableRow>
-            <TableHead
+            {data?.header?.map((item, index) => {
+             return <TableHead
+                key={index}
+                className="w-[100px] cursor-pointer"
+                onClick={() => handleSort(item)}
+              >
+                {item}
+              </TableHead>;
+            })}
+            {/* <TableHead
               className="w-[100px] cursor-pointer"
               onClick={() => handleSort("invoice")}
             >
@@ -157,11 +178,65 @@ const QuantitativeFeedback = () => {
               onClick={() => handleSort("totalAmount")}
             >
               Amount
-            </TableHead>
+            </TableHead> */}
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sortedInvoices.map((invoice) => (
+          {data?.rows?.map((item, index) => {
+            return (
+              <TableRow key={index}>
+                <TableCell className="font-medium">{item["Name"]}</TableCell>
+                <TableCell className="font-medium">
+                  {item["Manufacturer"]}
+                </TableCell>
+
+                <TableCell className="font-medium">
+                  {item["Cost (USD)"]}
+                </TableCell>
+
+                <TableCell className="font-medium">{item["TRL"]}</TableCell>
+
+                <TableCell className="font-medium">
+                  {item["Mass (kg)"]}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {item["Max Torque (Nm)"]}
+                </TableCell>
+
+                <TableCell className="font-medium">
+                  {item["Max Momentum (Nms)"]}
+                </TableCell>
+
+                <TableCell className="font-medium">
+                  {item["Peak Power (W)"]}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {item["Avg Power (W)"]}
+                </TableCell>
+
+                <TableCell className="font-medium">
+                  {item["Length (mm)"]}
+                </TableCell>
+
+                <TableCell className="font-medium">
+                  {item["Width (mm)"]}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {item["Height (mm)"]}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {item["Operating Temp (°C)"]}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {item["Radiation Tolerance"]}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {item["Flight Heritage"]}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+          {/* {sortedInvoices.map((invoice) => (
             <TableRow key={invoice.invoice}>
               <TableCell className="font-medium">{invoice.invoice}</TableCell>
               <TableCell>{invoice.paymentStatus}</TableCell>
@@ -170,14 +245,14 @@ const QuantitativeFeedback = () => {
                 {invoice.totalAmount}
               </TableCell>
             </TableRow>
-          ))}
+          ))} */}
         </TableBody>
-        <TableFooter>
+        {/* <TableFooter>
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
             <TableCell className="text-right">$2,500.00</TableCell>
           </TableRow>
-        </TableFooter>
+        </TableFooter> */}
       </Table>
     </div>
   );
