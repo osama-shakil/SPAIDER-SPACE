@@ -30,22 +30,14 @@ const ChatBot = () => {
           onSuccess: () => {},
         })
       );
-      dispatch(
-        getPromptDetailedResponse({
-          payload: { input: input, ai: "" },
-          onSuccess: () => {},
-        })
-      );
+      // dispatch(
+      //   getPromptDetailedResponse({
+      //     payload: { input: input, ai: "" },
+      //     onSuccess: () => {},
+      //   })
+      // );
       setInput("");
-      // Simulate bot response
-      // setTimeout(() => {
-      //   dispatch(
-      //     getPromptResponse({
-      //       payload: { text: response, sender: "ai" },
-      //       onSuccess: () => {},
-      //     })
-      //   );
-      // }, 1000);
+     
     }
   };
   useEffect(() => {
