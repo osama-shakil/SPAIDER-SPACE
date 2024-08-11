@@ -1,58 +1,46 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import DisplayCode from "../common/DisplayCode";
 
 const DetailResponse = () => {
-  const { chatData } = useSelector((state) => state.chats);
-
+  const { detailResponse } = useSelector((state) => state.chats);
+  const [response, setResponse] = useState("");
   const chatEndRef = useRef(null);
 
   useEffect(() => {
+    if (detailResponse) {
+      const responseWithCode = detailResponse.includes("'''")
+        ? detailResponse.split("'''")
+        : null;
+      setResponse(responseWithCode);
+    }
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatData]);
-
+  }, [detailResponse]);
   return (
     <div className=" flex flex-col  h-[83vh] overflow-y-scroll p-4 bg-github-secondary rounded shadow-md">
-      {chatData
-        ?.filter((msg) => msg.sender === "ai")
-        .map((msg, index) => {
-          const responseWithCode = msg.text.includes("'''")
-            ? msg.text.split("'''")
-            : null;
-          console.log("responseWithCode: ", responseWithCode);
-          return (
-            <>
-              {responseWithCode ? (
-                <div
-                  key={index}
-                  className={`my-2 py-2 px-4 text-wrap  max-w-[100%]  rounded ${
-                    msg.sender === "user" ? " self-end" : "self-start"
-                  }`}
-                >
-                  {responseWithCode[0]}
-                  <br></br>
-                  <br></br>
+      <>
+        {response ? (
+          <div className={`my-2 py-2 px-4 text-wrap  max-w-[100%]  rounded `}>
+            {response[0]}
+            <br></br>
+            <br></br>
 
-                  <DisplayCode code={responseWithCode[1]} />
-                  <br></br>
+            <DisplayCode code={response[1]} />
+            <br></br>
 
-                  {responseWithCode[2]}
-                </div>
-              ) : (
-                <div
-                  key={index}
-                  className={`my-2 py-2 px-4 text-wrap  max-w-[90%] border rounded ${
-                    msg.sender === "user" ? " self-end" : "self-start"
-                  }`}
-                >
-                  {msg.text}
-                </div>
-              )}
-            </>
-          );
-        })}
-      <div ref={chatEndRef} />
+            {response[2]}
+          </div>
+        ) : (
+          <div
+            className={`my-2 py-2 px-4 text-wrap  max-w-[90%]`}
+          >
+            {response}
+          </div>
+        )}
+      </>
+
+      {/* <div ref={chatEndRef} /> */}
     </div>
   );
 };
