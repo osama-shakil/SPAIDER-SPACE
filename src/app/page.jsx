@@ -1,11 +1,28 @@
+import FooterSection from "@/components/Footer/FooterSection";
 import PublicHeader from "@/components/header/PublicHeader";
+import CallToActionSection from "@/components/landing/CallToActionSection";
+import CompetitivePositioningSection from "@/components/landing/CompetitivePositioningSection";
+import DataKnowledgeSection from "@/components/landing/DataKnowledgeSection";
+import HeroSection from "@/components/landing/HeroSection";
+import ProductOverviewSection from "@/components/landing/ProductOverviewSection";
+import USPSection from "@/components/landing/USPSection";
+import ValuePropositionSection from "@/components/landing/ValuePropositionSection";
 import React from "react";
 
 const Page = () => {
   return (
     <>
        <div className="h-[8vh] "><PublicHeader /></div>
-      <main className=" min-h-screen flex flex-col items-center py-8">
+
+       <HeroSection />
+       <USPSection />
+       <ValuePropositionSection />
+       <CompetitivePositioningSection />
+       <ProductOverviewSection />
+       <DataKnowledgeSection />
+       <CallToActionSection />
+       <FooterSection />
+      {/* <main className=" min-h-screen flex flex-col items-center py-8">
         <div className="text-white   p-8 rounded-lg shadow-lg    mt-8">
           <h1 className="text-2xl  font-bold mb-4">
             About Our Company
@@ -41,7 +58,7 @@ const Page = () => {
             business.
           </p>
         </div>
-      </main>
+      </main> */}
     </>
   );
 };

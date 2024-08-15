@@ -1013,3 +1013,31 @@ body.dark input, body.dark .input-component {
   align-items: center;
 }
 
+/*  */
+/* styles/global.css or within your component using <style> */
+.neon-button {
+  background-color: #0f172a; /* Dark background for button */
+  color: #7dd3fc; /* Neon color */
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  outline: none;
+}
+
+.neon-button:hover, .neon-button:focus {
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {
+  from {
+    box-shadow: 0 0 5px #7dd3fc, 0 0 10px #7dd3fc, 0 0 20px #7dd3fc, 0 0 30px #7dd3fc, 0 0 40px #7dd3fc, 0 0 50px #7dd3fc, 0 0 60px #7dd3fc;
+  }
+  to {
+    box-shadow: 0 0 5px #7dd3fc, 0 0 10px #7dd3fc, 0 0 20px #7dd3fc, 0 0 30px #7dd3fc, 0 0 40px #7dd3fc, 0 0 50px #7dd3fc, 0 0 60px #7dd3fc;
+  }
+}
