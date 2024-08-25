@@ -14,7 +14,8 @@ const nextConfig = {
       "fast.wistia.com",
       "wistia.com",
       "wi.st",
-     "cdn.pixabay.com"
+     "cdn.pixabay.com",
+     "pixabay.com"
     ],
   },
   webpack: (config, { isServer }) => {

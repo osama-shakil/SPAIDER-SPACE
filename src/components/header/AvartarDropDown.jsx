@@ -47,9 +47,9 @@ const menuOptions = [
   { icon: FaClipboardList, label: "Free" },
   { icon: FaLightbulb, label: "Feature preview" },
   { icon: FaCog, label: "Settings" },
-  { icon: FaBook, label: "GitHub Docs" },
-  { icon: FaLifeRing, label: "GitHub Support" },
-  { icon: FaUsers, label: "GitHub Community" },
+  { icon: FaBook, label: "Docs" },
+  { icon: FaLifeRing, label: "Support" },
+  { icon: FaUsers, label: "Community" },
   { icon: FaSignOutAlt, label: "Sign out" }
 ];
 

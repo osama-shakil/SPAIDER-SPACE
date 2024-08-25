@@ -12,7 +12,7 @@ const HeroSection = () => {
           muted
           playsInline
           className="absolute z-10 w-auto min-w-full min-h-full max-w-none"
-          src="/video/earthVideo.mp4" // Specify the path to your video file here
+          src="/video/heroVideo.mp4" // Specify the path to your video file here
         >
           Your browser does not support the video tag.
         </video>
@@ -26,17 +26,14 @@ const HeroSection = () => {
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Revolutionizing Aerospace Intelligence with AI-Driven Precision
         </h1>
-        <p className="text-lg md:text-2xl mb-8">
-          Your One-Stop Solution for Aerospace Information and Workflow
-          Automation
-        </p>
-        <p className="text-sm md:text-base italic mb-8">
-          Our Mission: accelerating innovation and informed decision-making in
-          the aerospace sector.
-        </p>
+
+        <span className="text-lg md:text-md italic mb-8">
+          Our Mission: Developing the most advanced AI for aerospace
+          professionals accelerating innovation and informed decision-making
+        </span>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col md:flex-row gap-4 md:justify-center ">
+        <div className="flex flex-col md:flex-row gap-4 md:justify-center mt-8 ">
           <Button className="bg-blue-900 hover:bg-blue-700 text-white text-lg font-semibold py-5 px-8 rounded-full shadow-lg transition-all duration-300">
             Explore SPAIDER
           </Button>

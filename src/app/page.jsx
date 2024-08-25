@@ -4,6 +4,7 @@ import CallToActionSection from "@/components/landing/CallToActionSection";
 import CompetitivePositioningSection from "@/components/landing/CompetitivePositioningSection";
 import DataKnowledgeSection from "@/components/landing/DataKnowledgeSection";
 import HeroSection from "@/components/landing/HeroSection";
+import ProductEvolutionRoadmap from "@/components/landing/ProductEvolutionRoadmap ";
 import ProductOverviewSection from "@/components/landing/ProductOverviewSection";
 import USPSection from "@/components/landing/USPSection";
 import ValuePropositionSection from "@/components/landing/ValuePropositionSection";
@@ -16,10 +17,11 @@ const Page = () => {
 
        <HeroSection />
        <USPSection />
-       <ValuePropositionSection />
-       <CompetitivePositioningSection />
+       {/* <ValuePropositionSection />
+       <CompetitivePositioningSection /> */}
        <ProductOverviewSection />
        <DataKnowledgeSection />
+       <ProductEvolutionRoadmap />
        <CallToActionSection />
        <FooterSection />
       {/* <main className=" min-h-screen flex flex-col items-center py-8">

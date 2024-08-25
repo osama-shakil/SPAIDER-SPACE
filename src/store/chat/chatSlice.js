@@ -17,6 +17,9 @@ export const chatSlice = createSlice({
       temp.push(action.payload);
       state.chatData = temp;
     },
+    refreshChat: (state) => {
+      state.chatData = [];
+    },
   },
 
   extraReducers: (builder) => {
@@ -49,5 +52,5 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { sendPromt } = chatSlice.actions;
+export const { sendPromt , refreshChat } = chatSlice.actions;
 export default chatSlice.reducer;
