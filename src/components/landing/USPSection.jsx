@@ -11,43 +11,43 @@ const USPSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-black opacity-75"></div>
         <div className="absolute inset-0 grid grid-cols-1 gap-4">
           {/* Example Icons */}
-          <div className="absolute top-20 left-10 flex items-center">
-            <div className="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
+          <div className="absolute top-20 left-20 flex items-center">
+            <div className="w-24 h-24 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
               <Image
                 src="/icons/icon1.png"
                 alt="Brain Icon "
-                width={30}
-                height={30}
+                width={45}
+                height={45}
               />
             </div>
           </div>
           <div className="absolute bottom-40 left-20 flex items-center">
-            <div className="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
               <Image
                 src="/icons/icon2.png"
                 alt="Shield Icon "
-                width={30}
-                height={30}
+                width={45}
+                height={45}
               />
             </div>
           </div>
-          <div className="absolute top-40 right-20 flex items-center">
-            <div className="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
+          <div className="absolute top-20 right-20 flex items-center">
+            <div className="w-24 h-24 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
               <Image
                 src="/icons/icon3.png"
                 alt="Shield Icon "
-                width={30}
-                height={30}
+                width={45}
+                height={45}
               />
             </div>
           </div>
           <div className="absolute bottom-40 right-20 flex items-center">
-            <div className="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
+            <div className="w-24 h-24 bg-white bg-opacity-10 rounded-full flex items-center justify-center">
               <Image
                 src="/icons/icon4.png"
                 alt="Shield Icon "
-                width={30}
-                height={30}
+                width={45}
+                height={45}
               />
             </div>
           </div>

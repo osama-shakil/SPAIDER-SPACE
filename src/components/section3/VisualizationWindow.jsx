@@ -10,8 +10,8 @@ const VisualizationWindow = () => {
       {/* <ThreeJSObjModel  modelPath={"shiba/ImageToStl.com_730_1.obj"} />    */}
 
       <div className=" relative w-full h-[87.5vh]">
-        <div className="absolute inset-0 h-20 bg-[#c0c0c0] flex justify-center place-items-center">
-          <p className="text-3xl text-github-secondary font-semibold">Visualization Window </p>
+        <div className="absolute inset-0 h-20 bg-[#dddddd] flex justify-center place-items-center">
+          <p className="text-3xl text-github-secondary font-semibold"></p>
         </div>
         <iframe
           title="3D Model"

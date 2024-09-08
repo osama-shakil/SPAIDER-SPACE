@@ -73,7 +73,7 @@ const DataKnowledgeSection = () => {
             src="/images/Database.png"
             alt=""
             layout="fill"
-            objectFit="fill"
+            objectFit="contain"
             className="w-fit h-full "
           />
         </div>

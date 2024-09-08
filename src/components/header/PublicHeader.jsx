@@ -7,9 +7,18 @@ import Link from "next/link";
 import Logo from "@/assets/Logo_svg_neongreen.svg";
 import Image from "next/image";
 import SeachBar from "./SeachBar";
+import { useEffect } from "react";
+import { setCookie } from "cookies-next";
 
 const PublicHeader = () => {
   const { user } = useSelector((state) => state?.user);
+  console.log('user: ', user);
+
+  useEffect(()=>{
+    if(user){
+      setCookie('uid',user.id)
+    }
+  },[])
   return (
     <header className="flex justify-between place-items-center bg-gray-900 text-white px-10 h-full  shadow-md">
       <Menu />
@@ -44,7 +53,7 @@ const PublicHeader = () => {
               {" "}
               <Link
                 href="/chatbot"
-                className="text-gray-300 hover:text-white transition duration-300 mr-16"
+                className="text-gray-300 hover:text-white transition duration-300 mr-16 my-auto"
               >
                 chatbot
               </Link>

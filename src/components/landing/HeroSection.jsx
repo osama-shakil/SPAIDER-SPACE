@@ -1,7 +1,15 @@
+"use client";
 import React from "react";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/chatbot");
+  };
+
   return (
     <header className="relative h-screen flex flex-col items-center justify-center text-center bg-black text-white">
       {/* Background Video/Image */}
@@ -34,7 +42,10 @@ const HeroSection = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col md:flex-row gap-4 md:justify-center mt-8 ">
-          <Button className="bg-blue-900 hover:bg-blue-700 text-white text-lg font-semibold py-5 px-8 rounded-full shadow-lg transition-all duration-300">
+          <Button
+            onClick={handleClick}
+            className="bg-blue-900 hover:bg-blue-700 text-white text-lg font-semibold py-5 px-8 rounded-full shadow-lg transition-all duration-300"
+          >
             Explore SPAIDER
           </Button>
           <Button className="text-lg font-semibold py-5 px-8 rounded-full shadow-lg border border-white hover:bg-white hover:text-black transition-all duration-300">
